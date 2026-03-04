@@ -20,6 +20,11 @@
                     Not Completed
                 {% endif %}
                 <a href="{% url 'delete_task' task.id%}">Delete</a>
+                {% if task.completed %}
+                <a href="{% url 'toggle_complete' task.id %}">Mark Incomplete</a>
+                {% else %}
+                <a href="{% url 'toggle_complete' task.id %}">Mark Complete</a>
+                {% endif %}
             </li>
         {% empty %}
             <li>No tasks yet.</li>
