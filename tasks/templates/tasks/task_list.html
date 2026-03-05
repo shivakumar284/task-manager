@@ -2,6 +2,30 @@
 <html>
 <head>
     <title>Task List</title>
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            max-width:600px;
+            margin: 20px auto;
+        }
+        h2{
+            color: #333;
+            margin-top: 20px;
+        }
+        .task{
+            margin-bottom: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .incomplete {
+            font-weight: bold;
+        }
+        
+        </style>
 </head>
 <body>
     <h1>My Tasks</h1>
@@ -10,25 +34,32 @@
         <input type="text" name="title" placeholder="Enter task" required>
         <button type="submit">Add Task</button>
     </form>
-    <ul>
-        {% for task in tasks %}
-            <li>
-                {{ task.title }} - 
-                {% if task.completed %}
-                    Completed
-                {% else %}
-                    Not Completed
-                {% endif %}
-                <a href="{% url 'delete_task' task.id%}">Delete</a>
-                {% if task.completed %}
-                <a href="{% url 'toggle_complete' task.id %}">Mark Incomplete</a>
-                {% else %}
+    <h2>Incomplete Tasks</h2>
+    {% for task in tasks %}
+        {% if not task.completed %}
+            <div class="task incomplete">
+                {{ task.title }}
                 <a href="{% url 'toggle_complete' task.id %}">Mark Complete</a>
-                {% endif %}
-            </li>
-        {% empty %}
-            <li>No tasks yet.</li>
-        {% endfor %}
-    </ul>
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+            </div>
+        {% endif %}
+    {% empty %}
+        <p>No incomplete tasks.</p>
+    {% endfor %}
+
+    <h2>Completed Tasks</h2>
+    {% for task in tasks %}
+        {% if task.completed %}
+            <div class="task completed">
+                {{ task.title }}
+                <a href="{% url 'toggle_complete' task.id %}">Mark Incomplete</a>
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+            </div>
+        {% endif %}
+    {% empty %}
+        <p>No completed tasks.</p>
+    {% endfor %}
+    
+
 </body>
 </html>

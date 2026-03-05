@@ -8,8 +8,9 @@ def task_list(request):
         Task.objects.create(title=title)
         return redirect('task_list')
 
-    tasks = Task.objects.all()
+    tasks = Task.objects.all().order_by('-created')
     return render(request, 'tasks/task_list.html', {'tasks': tasks})
+
 
 def delete_task(request,id):
     task=Task.objects.get(id=id)
