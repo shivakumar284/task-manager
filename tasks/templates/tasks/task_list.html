@@ -40,7 +40,9 @@
             <div class="task incomplete">
                 {{ task.title }}
                 <a href="{% url 'toggle_complete' task.id %}">Mark Complete</a>
+                <a href="{% url 'edit_task' task.id %}">Edit</a>
                 <a href="{% url 'delete_task' task.id %}" onclick="return confirm('Are you sure you want to delete this task?');">Delete</a>
+                
             </div>
         {% endif %}
     {% empty %}
@@ -53,7 +55,9 @@
             <div class="task completed">
                 {{ task.title }}
                 <a href="{% url 'toggle_complete' task.id %}">Mark Incomplete</a>
+                <a href="{% url 'edit_task' task.id %}">Edit</a>
                 <a href="{% url 'delete_task' task.id %}">Delete</a>
+                
             </div>
         {% endif %}
     {% empty %}

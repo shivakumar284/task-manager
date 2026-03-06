@@ -22,3 +22,14 @@ def toggle_complete(request, id):
     task.completed = not task.completed
     task.save()
     return redirect('task_list')
+
+def edit_task(request, id):
+    task = Task.objects.get(id=id)
+
+    if request.method == "POST":
+        title = request.POST.get('title')
+        task.title = title
+        task.save()
+        return redirect('task_list')
+
+    return render(request, 'edit_task.html', {'task': task})
