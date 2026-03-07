@@ -1,12 +1,18 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+
 <h2>Register</h2>
 {% for message in messages %}
 <p style="color:red;">{{ message }}</p>
 {% endfor %}
 <form method="POST">
     {% csrf_token %}
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Register</button>
+    <input class="form-control mb-2" type="text" name="username" placeholder="Username">
+    <input class="form-control mb-2" type="password" name="password" placeholder="Password">
+    <button class="btn btn-success">Register</button>
 </form>
 
 <a href="{% url 'login' %}">Login</a>
+
+{% endblock %}
