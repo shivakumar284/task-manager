@@ -5,12 +5,20 @@ from .models import Task
 def task_list(request):
     if request.method == "POST":
         title = request.POST.get('title')
-        Task.objects.create(title=title)
+        if title:
+            Task.objects.create(title=title)
         return redirect('task_list')
 
-    tasks = Task.objects.all().order_by('-created')
-    return render(request, 'tasks/task_list.html', {'tasks': tasks})
+    
 
+    query = request.GET.get('q')
+
+    if query:
+        tasks = Task.objects.filter(title__icontains=query)
+    else:
+        tasks = Task.objects.all().order_by('-created')
+
+    return render(request, 'tasks/task_list.html', {'tasks': tasks})
 
 def delete_task(request,id):
     task=Task.objects.get(id=id)
@@ -33,3 +41,4 @@ def edit_task(request, id):
         return redirect('task_list')
 
     return render(request, 'edit_task.html', {'task': task})
+

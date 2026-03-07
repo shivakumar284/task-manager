@@ -28,6 +28,10 @@
         </style>
 </head>
 <body>
+    <form method="GET">
+        <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
     <h1>My Tasks</h1>
     <form method="POST">
         {% csrf_token %}
